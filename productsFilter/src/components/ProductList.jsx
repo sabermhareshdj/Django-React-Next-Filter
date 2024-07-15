@@ -4,7 +4,7 @@ const ProductList = () => {
   // ui + logic 
   return (
     <div className="">
-      <h3>Product List</h3>
+      <h2>Product List</h2>
       <div className="row mt-5">
         <div className="col-lg-4">
           <div className="card">
