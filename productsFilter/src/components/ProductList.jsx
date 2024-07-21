@@ -5,11 +5,11 @@ import productsStore from "../store";
 const ProductList = () => {
   // logic
 
-  const {products, setproducts} = productsStore();
+  const {products, setproducts,filters} = productsStore();
 
   useEffect(() => {
-    fetchProducts().then(setproducts)
-  })
+    fetchProducts(filters).then(setproducts)
+  },[filters,setproducts]) //call useEffect when filters or products change
 
   // ui + logic 
   return (

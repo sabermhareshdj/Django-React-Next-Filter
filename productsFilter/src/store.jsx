@@ -13,6 +13,7 @@ const productsStore = create((set) => ({
   },
   setproducts: (products) => set({ products }),
   setcategories: (categories) => set({ categories }),
+  setfilters: (filters) => set(state => ({filters: {...state.filters,...filters}}))
 }));
 
 export default productsStore;
