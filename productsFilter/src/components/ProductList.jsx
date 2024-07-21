@@ -17,11 +17,11 @@ const ProductList = () => {
       <h2>Product List</h2>
       <div className="row mt-5">
         { products.map(product => (
-                  <div key={product.id} className="col-lg-4">
+                  <div key={product.id} className="col-lg-4 my-2">
                     <div className="card">
                       <img
                         src={product.image}
-                        className="card-img-top"
+                        className="card-img-top product-img"
                         alt="Product"
                       />
                       <div className="card-body">
