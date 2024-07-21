@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProducts } from "../api";
 import productsStore from "../store";
 
@@ -6,10 +6,35 @@ const ProductList = () => {
   // logic
 
   const {products, setproducts,filters} = productsStore();
+  const [page, setPage] = useState(1);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
 
   useEffect(() => {
-    fetchProducts(filters).then(setproducts)
-  },[filters,setproducts]) //call useEffect when filters or products change
+    const loadProducts = async () => {
+      const response = await fetchProducts(filters,page)
+      setproducts(response.results)
+      setNextPage(response.next)
+      setPrevPage(response.previous)
+    }
+
+    loadProducts()
+  },[filters,setproducts,page]) 
+
+  const handleNextPage = () => {
+    if (nextPage) setPage(page+1)
+
+  }
+
+  const handlePrevPage = () => {
+    if (prevPage) setPage(page-1)
+    
+  }
+
+
+
+
+
 
   // ui + logic 
   return (
@@ -34,6 +59,23 @@ const ProductList = () => {
                     </div>
                 </div>
         ))}
+
+      {/* pageination */}
+
+      <div className="mt-5">
+        <button
+        className="btn btn-primary"
+        onClick={handlePrevPage}
+        disabled={!prevPage}
+        > Previous </button>
+        <button
+        className="btn btn-primary"
+        onClick={handleNextPage}
+        disabled={!nextPage}
+        > Next </button>
+        
+      </div>
+
 
       </div>
     </div>
