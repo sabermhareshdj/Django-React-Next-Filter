@@ -16,14 +16,16 @@ const ProductFilter = () => {
 
     const newCategories = checked
     ? [...filters.categories, parseInt(value)]
-    : filters.categories.filters(id => id != parseInt(value))
-    setfilters({categories: newCategories})
-
-
+    : filters.categories.filter(id => id != parseInt(value))
+    setfilters({categories : newCategories})
   }
 
   const handlePriceChange = (e) => {
-    
+    const {name , value} = e.target
+    const newPriceRange = [...filters.price_range]
+    if (name == 'min') newPriceRange[0] = value;
+    if (name == 'max') newPriceRange[1] = value;
+    setfilters({price_range : newPriceRange})
   }
 
   // UI + Logic 
@@ -55,6 +57,7 @@ const ProductFilter = () => {
             type="number" 
             className="form-control" 
             placeholder="Min Price" 
+            name="min"
             value={filters.price_range[0]}
             onChange={handlePriceChange}
             />
@@ -64,6 +67,7 @@ const ProductFilter = () => {
             type="number" 
             className="form-control" 
             placeholder="Max Price"
+            name="max"
             value={filters.price_range[1]}
             onChange={handlePriceChange} 
             />
